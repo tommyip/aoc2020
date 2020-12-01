@@ -2,3 +2,8 @@
   (name day1_part1)
   (modules day1_part1)
   (libraries containers gen lib))
+
+(executable
+  (name day1_part2)
+  (modules day1_part2)
+  (libraries containers gen lib))
