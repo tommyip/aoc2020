@@ -1,9 +1,14 @@
 (executable
   (name day1_part1)
   (modules day1_part1)
-  (libraries containers gen lib))
+  (libraries containers gen))
 
 (executable
   (name day1_part2)
   (modules day1_part2)
-  (libraries containers gen lib))
+  (libraries containers gen))
+
+(executable
+  (name day2)
+  (modules day2)
+  (libraries containers))
