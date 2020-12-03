@@ -7,3 +7,8 @@
   (name day2)
   (modules day2)
   (libraries containers))
+
+(executable
+  (name day3)
+  (modules day3)
+  (libraries containers))
