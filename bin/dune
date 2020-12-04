@@ -12,3 +12,8 @@
   (name day3)
   (modules day3)
   (libraries containers))
+
+(executable
+  (name day4)
+  (modules day4)
+  (libraries containers str))
