@@ -16,4 +16,4 @@
 (executable
   (name day4)
   (modules day4)
-  (libraries containers str))
+  (libraries containers re lib))
