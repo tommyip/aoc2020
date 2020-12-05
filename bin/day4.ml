@@ -14,7 +14,7 @@ let kvs_valid kvs =
         | h, "in" -> in_range h 59 76
         | _ -> false
       end
-    | "hcl", v -> Lib.String.re_match "^#[0-9a-f]{6}$" v
+    | "hcl", v -> Lib.String.is_match "^#[0-9a-f]{6}$" v
     | "ecl", v -> List.mem v ["amb"; "blu"; "brn"; "gry"; "grn"; "hzl"; "oth"]
     | "pid", v -> String.length v = 9 && (int_of_string_opt v |> CCOpt.is_some)
     | _ -> true)
