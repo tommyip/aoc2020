@@ -17,3 +17,8 @@
   (name day4)
   (modules day4)
   (libraries containers re lib))
+
+(executable
+  (name day5)
+  (modules day5)
+  (libraries containers))
