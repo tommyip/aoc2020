@@ -22,3 +22,8 @@
   (name day5)
   (modules day5)
   (libraries containers))
+
+(executable
+  (name day6)
+  (modules day6)
+  (libraries containers gen re lib))
