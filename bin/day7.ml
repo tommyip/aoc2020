@@ -3,14 +3,11 @@ open Containers
 module RulesMap = Map.Make(String)
 
 let parse_rule rule =
-  match List.hd (Lib.String.matches "^(.+) bags contain (.+)\\.$" rule) with
-  | color :: "no other bags" :: [] -> (color, [])
-  | color :: regulations :: [] ->
-      let regulations = List.map
-        (fun regulation -> Scanf.sscanf regulation "%d %s %s" (fun n c1 c2 -> (n, c1 ^ " " ^ c2)))
-        (String.split ~by:", " regulations)
-      in (color, regulations)
-  | _ -> failwith "Regex failed"
+  let matches = Lib.String.matches "(?:(\\d+) )?(\\w+ \\w+) bags?" rule
+    |> List.map (fun groups -> (List.hd groups, List.get_at_idx_exn 1 groups)) in
+  let ((_, color), regulations) = List.hd_tl matches in
+  try (color, List.map (Pair.map_fst int_of_string) regulations)
+  with Failure _ -> (color, [])
 
 let rec n_bags rules regulations =
   Lib.List.sum
