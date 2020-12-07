@@ -1,3 +1,5 @@
+open Containers
+
 let is_tree map x y =
   let layer = Array.get map y in
   Bool.to_int (Array.get layer (x mod (Array.length layer)))
@@ -11,9 +13,9 @@ let count_trees map (right, down) =
   in aux 0 0 0
 
 let () =
-  let map = open_in "inputs/day3.txt"
-    |> CCIO.read_lines_l
-    |> List.map (fun layer -> CCString.to_array layer |> Array.map ((=) '#'))
+  let map =
+    IO.read_lines_l stdin
+    |> List.map (fun layer -> String.to_array layer |> Array.map (Char.equal '#'))
     |> Array.of_list
   in
   let part1 = count_trees map (3, 1) in

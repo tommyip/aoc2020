@@ -1,12 +1,14 @@
+open Containers
+
 let seat_id specifier =
-  let id = "0b" ^ String.map (fun c -> if c = 'F' || c = 'L' then '0' else '1') specifier in
-  Scanf.sscanf id "%i" (CCFun.id)
+  let id = "0b" ^ String.map (fun c -> if Char.equal c 'F' || Char.equal c 'L' then '0' else '1') specifier in
+  Scanf.sscanf id "%i" (Fun.id)
 
 let () =
-  let ids = open_in "inputs/day5.txt"
-    |> CCIO.read_lines_l
+  let ids =
+    IO.read_lines_l stdin
     |> List.map seat_id
-    |> List.sort (CCFun.flip compare)
+    |> List.sort (Fun.flip compare)
   in
   let part1 = List.hd ids in
   let part2 =

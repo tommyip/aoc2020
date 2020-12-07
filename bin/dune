@@ -1,7 +1,7 @@
 (executable
   (name day1)
   (modules day1)
-  (libraries containers gen))
+  (libraries containers))
 
 (executable
   (name day2)
@@ -26,4 +26,4 @@
 (executable
   (name day6)
   (modules day6)
-  (libraries containers gen re lib))
+  (libraries containers lib))
