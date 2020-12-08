@@ -1,3 +1,4 @@
+open Lib
 open Containers
 
 let console code =
@@ -17,12 +18,9 @@ let console code =
 
 let () =
   let code = IO.read_lines_l stdin
-    |> List.map (Fun.compose (Lib.String.split_to_pair ' ') (Pair.map_snd int_of_string))
+    |> List.map (Fun.compose (MYString.split_to_pair ' ') (Pair.map_snd int_of_string))
   in
-  let part1 = match console code with
-    | Error acc -> acc
-    | _ -> failwith "Kid is lying"
-  in
+  let part1 = MYResult.get_err_exn (console code) in
   let part2 = List.find_mapi (fun i (op, arg) ->
     match op with
     | "nop" -> console (List.set_at_idx i ("jmp", arg) code) |> Result.to_opt

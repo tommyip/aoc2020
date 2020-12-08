@@ -1,3 +1,4 @@
+open Lib
 open Containers
 
 module CharSet = Set.Make(Char)
@@ -14,6 +15,6 @@ let () =
     in fun f ->
       list_of_sets
       |> List.map (fun ls -> List.fold_left f (List.hd ls) ls |> CharSet.cardinal)
-      |> Lib.List.sum
+      |> MYList.sum
   in
   Printf.printf "%d %d\n" (part CharSet.union) (part CharSet.inter)

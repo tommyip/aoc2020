@@ -1,3 +1,4 @@
+open Lib
 open Containers
 
 let in_range s lo hi =
@@ -16,7 +17,7 @@ let kvs_valid kvs =
         | h, "in" -> in_range h 59 76
         | _ -> false
       end
-    | "hcl", v -> Lib.String.is_match "^#[0-9a-f]{6}$" v
+    | "hcl", v -> MYString.is_match "^#[0-9a-f]{6}$" v
     | "ecl", v -> List.mem v ["amb"; "blu"; "brn"; "gry"; "grn"; "hzl"; "oth"]
     | "pid", v -> String.length v = 9 && (int_of_string_opt v |> Option.is_some)
     | _ -> true)
@@ -28,7 +29,7 @@ let _ =
     |> String.split ~by:"\n\n"
     |> List.map (fun entry -> entry
       |> Re.split (Re.Posix.compile_pat "[ \n]")
-      |> List.map (Lib.String.split_to_pair ':'))
+      |> List.map (MYString.split_to_pair ':'))
     |> List.filter (fun kvs ->
       let n = List.length kvs in
       n = 8 || (n = 7 && not (List.exists (fun (k, _) -> String.equal k "cid") kvs)))
