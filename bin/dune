@@ -37,3 +37,8 @@
   (name day8)
   (modules day8)
   (libraries containers lib))
+
+(executable
+  (name day9)
+  (modules day9)
+  (libraries containers))
