@@ -3,12 +3,9 @@ open Containers
 
 let preamble_size = 25
 
-let first_last lst =
-  (List.hd lst, Option.get_exn (List.last_opt lst))
-
 let valid x preamble =
   MYItertools.combinations 2 preamble
-  |> Gen.exists @@ fun comb -> (Pair.fold ( + ) (first_last comb)) = x
+  |> Gen.exists @@ fun comb -> (Pair.fold ( + ) (MYList.take_ends comb)) = x
 
 let () =
   let data = IO.read_lines_l stdin |> List.rev_map int_of_string in
@@ -24,6 +21,6 @@ let () =
         List.sublists_of_len ~offset:1 length data
         |> List.find_opt (Fun.compose MYList.sum (( = ) part1)))
     |> Option.get_exn |> List.sort compare
-    |> first_last |> Pair.fold ( + )
+    |> MYList.take_ends |> Pair.fold ( + )
   in
   Printf.printf "%d %d\n" part1 part2

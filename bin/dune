@@ -41,4 +41,9 @@
 (executable
   (name day9)
   (modules day9)
-  (libraries containers))
+  (libraries containers lib gen))
+
+(executable
+  (name day10)
+  (modules day10)
+  (libraries containers lib))
