@@ -1,37 +1,29 @@
+open Lib
 open Containers
 
 let preamble_size = 25
 
-let not_valid x preamble =
-  not
-    (Array.exists
-       (fun y ->
-         Array.exists (fun z -> if y <> z then y + z = x else false) preamble)
-       preamble)
+let first_last lst =
+  (List.hd lst, Option.get_exn (List.last_opt lst))
+
+let valid x preamble =
+  MYItertools.combinations 2 preamble
+  |> Gen.exists @@ fun comb -> (Pair.fold ( + ) (first_last comb)) = x
 
 let () =
-  let data = IO.read_lines_l stdin |> List.map int_of_string |> Array.of_list in
+  let data = IO.read_lines_l stdin |> List.rev_map int_of_string in
   let part1 =
-    Array.find_map_i
-      (fun i x ->
-        if i >= preamble_size &&
-          not_valid x (Array.sub data (i - preamble_size) preamble_size) then Some x
-        else None)
-      data
+    List.sublists_of_len ~offset:1 (preamble_size + 1) data
+    |> List.find_map (Fun.compose List.hd_tl @@ fun (x, preamble) ->
+        if valid x preamble then None else Some x)
     |> Option.get_exn
   in
   let part2 =
-    List.range 2 (Array.length data)
+    List.range 2 (List.length data)
     |> List.find_map (fun length ->
-        Array.find_map_i
-          (fun i _x ->
-            if i + length < Array.length data then
-              let set = Array.sub data i length in
-              if Array.fold_left ( + ) 0 set = part1 then Some set
-              else None
-            else None)
-          data)
-    |> Option.get_exn |> Array.sorted compare
-    |> fun arr -> arr.(0) + arr.(Array.length arr - 1)
+        List.sublists_of_len ~offset:1 length data
+        |> List.find_opt (Fun.compose MYList.sum (( = ) part1)))
+    |> Option.get_exn |> List.sort compare
+    |> first_last |> Pair.fold ( + )
   in
   Printf.printf "%d %d\n" part1 part2

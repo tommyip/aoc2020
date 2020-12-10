@@ -8,3 +8,5 @@ tmp/
 .merlin
 *.install
 *.log
+
+dl_input.sh
