@@ -46,4 +46,4 @@
 (executable
   (name day10)
   (modules day10)
-  (libraries containers lib))
+  (libraries containers containers-data lib))
