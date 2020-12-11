@@ -1,3 +1,7 @@
+(env
+  (dev
+    (flags (:standard -warn-error -A))))
+
 (executable
   (name day1)
   (modules day1)
@@ -47,3 +51,8 @@
   (name day10)
   (modules day10)
   (libraries containers containers-data lib))
+
+(executable
+  (name day11)
+  (modules day11)
+  (libraries containers))
