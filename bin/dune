@@ -56,3 +56,8 @@
   (name day11)
   (modules day11)
   (libraries containers))
+
+(executable
+  (name day12)
+  (modules day12)
+  (libraries containers))
