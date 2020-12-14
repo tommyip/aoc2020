@@ -14,3 +14,5 @@ let matches re s =
     (CCList.map
       Re.Group.all
       (Re.all (Re.Perl.compile_pat re) s))
+
+let parse_binary s = Scanf.sscanf ("0b" ^ s) "%i" Fun.id

@@ -9,3 +9,6 @@ val is_match : string -> string -> bool
 
 val matches : string -> string -> string list list
 (** [matches re s] return the list of match groups matched by [re] on [s] *)
+
+val parse_binary : string -> int
+(** [parse_binary s] return the integer value of [s] encoded in binary *)
