@@ -81,3 +81,8 @@
   (name day16)
   (modules day16)
   (libraries containers lib))
+
+(executable
+  (name day17)
+  (modules day17)
+  (libraries containers lib))
