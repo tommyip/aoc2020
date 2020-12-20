@@ -91,3 +91,8 @@
   (name day18)
   (modules day18)
   (libraries containers lib angstrom))
+
+(executable
+  (name day19)
+  (modules day19)
+  (libraries containers lib angstrom))
