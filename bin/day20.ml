@@ -1,9 +1,11 @@
 open Lib
 open Containers
 
+type edge
+  = Match of int
+
 type tile =
-  { id: int;
-    top: bool list;
+  { top: bool list;
     left: bool list;
     bottom: bool list;
     right: bool list;
@@ -13,6 +15,9 @@ type tile =
     neighbor_bottom: int option;
     neighbor_right: int option;
   }
+
+let tile_match tile_a tile_b =
+
 
 let parse_tile input =
   let header, tile = List.hd_tl (String.lines input)
@@ -27,17 +32,33 @@ let parse_tile input =
     if i = 0 || i = 9 then None
     else Some (List.drop 1 row |> List.take 8)
   ) tile in
-  { id; top; left; bottom; right; map;
+  (id,
+  { top; left; bottom; right; map;
     neighbor_top=None;
     neighbor_left=None;
     neighbor_bottom=None;
-    neighbor_right=None }
+    neighbor_right=None })
 
-let tiles = IO.read_all stdin
+module TileMap = Map.Make(Int)
+
+let tiles =
+  IO.read_all stdin
   |> String.rtrim
   |> String.split ~by:"\n\n"
   |> List.map parse_tile
-  |> Array.of_list
+  |> TileMap.of_list
+
+let oriented = Hashtbl.create 144
+
+let rec fit tile remaining =
+  let top = tile.neighbor_top in
+  TileMap.filter (fun id tile' ->
+
+  ) remaining
+
+let habitat =
+  let size = sqrt (Array.length tiles |> float_of_int) |> int_of_float in
+  Array.make_matrix size size 0
 
 let side_equal = List.equal Bool.equal
 
@@ -49,9 +70,10 @@ let side_matched tile_id side =
     else false
 
 let _ =
-  tiles |> Array.filter_map (fun ({ id; top; left; bottom; right; _ }) ->
+  let corners = tiles |> Array.filter_map (fun ({ id; top; left; bottom; right; _ }) ->
       [side_matched id top; side_matched id left; side_matched id bottom; side_matched id right]
       |> List.count Fun.id
       |> function 2 -> Some id | _ -> None)
-  |> Array.fold_left ( * ) 1
-  |> print_int
+  in
+  let part1 = corners |> Array.fold_left ( * ) 1 in
+  ()
