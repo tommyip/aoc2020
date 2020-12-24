@@ -116,3 +116,8 @@
   (name day23)
   (modules day23)
   (libraries containers containers-data lib))
+
+(executable
+  (name day24)
+  (modules day24)
+  (libraries containers))
